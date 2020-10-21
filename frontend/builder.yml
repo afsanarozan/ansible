@@ -67,7 +67,7 @@
             name: "{{hub}}/{{proj}}:{{branch}}"
             build:
               path: "{{dests}}/{{proj}}"
-              dockerfile: DockerfileDev
+              dockerfile: Dockerfile
             source: build
             state: present
           when: branch=="dev"
