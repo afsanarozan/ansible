@@ -6,7 +6,6 @@
     urlTest: "http://localhost"
     portTest: "8080"
     user: ansman
-    branch: dev
     remote_file: /home/ansman/cafe
     dockercomposeDev: docker-compose.dev.yml
     dockercomposeProd: docker-compose.yml
