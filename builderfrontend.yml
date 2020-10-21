@@ -1,0 +1,42 @@
+---
+  - name: Image Builder
+    hosts: frontend
+    vars:
+      hub: "afsanarozan"
+      proj: "frontend"
+      dests: /home/ansman/project
+      repo: https://github.com/afsanarozan/viue-js.git
+
+    tasks:
+
+      - name: Check Connection node
+        ping:
+
+      - name: Ensure git Installed
+        become: true
+        yum:
+          name: git
+          state: present 
+      
+      - name: Installing Python Docker
+        become: true
+        pip:
+          name: docker
+          
+      - name: Use Git Module to Clone
+        git:
+          repo: "{{repo}}"
+          dest: "{{dests}}/{{proj}}"
+
+      - name: build image
+        community.general.docker_image:
+          name: "{{hub}}/{{proj}}:prod"
+          build:
+            path: "{{dests}}/{{proj}}"
+          source: build
+
+      
+
+      
+
+     

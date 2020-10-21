@@ -1,0 +1,39 @@
+---
+    - name: "testing Image"
+      hosts: dev-server
+      vars:
+        hub: "afsanarozan"
+        proj: "frontend"
+        dests: /home/ansman/project
+
+      tasks: 
+
+        - name: "Check Connection"
+          ping:
+
+        - name: "Ensure python docker"
+          become: true 
+          pip:
+            name: docker
+
+        - name: "Create Container"
+        community.general.docker_container:
+          name: "{{proj}}"
+          image: "{{hub}}/{{proj}}:prod"
+          state: started
+          ports:
+          - "8080:80"
+
+      - name: "test Container"
+        uri:
+          url: "http://localhost:8080"
+          return_content: yes
+        register: test
+        failed_when: "'<!DOCTYPE html>' not in test.content "
+
+      - name: Tag and push to Docker hub
+        community.general.docker_image:
+          name: "{{hub}}/{{proj}}:prod"
+          repository: "{{hub}}/{{proj}}:prod"
+          push: yes
+          source: local

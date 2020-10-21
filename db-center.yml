@@ -1,0 +1,32 @@
+---
+  - name: backend builder
+    hosts: backend
+    vars:
+      hub: "afsanarozan"
+      proj: "backend"
+      dests: /home/ansman/project
+      repo: https://github.com/afsanarozan/backend-1
+
+    tasks:
+      - name: check connection node
+        ping:
+
+      - name: Ensure git Installed
+        become: true
+        yum:
+          name: git
+          state: present
+
+      - name: Installing Python Docker
+        become: true
+        pip:
+          name: docker
+
+      - name: Use Git Module to Clone
+        git:
+          repo: "{{repo}}"
+          dest: "{{dests}}/{{proj}}"
+
+      - name: build image and running
+        command: "cd project; cd backend; docker-compose up -d"
+        register: output

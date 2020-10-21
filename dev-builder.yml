@@ -1,0 +1,60 @@
+---
+  - name: Image Builder
+    hosts: dev-server
+    vars:
+      hub: "afsanarozan"
+      proj: "backend"
+      dests: /home/ansman/project
+      repo: https://github.com/afsanarozan/viue-js.git
+
+    tasks:
+
+      - name: Check Connection node
+        ping:
+
+      - name: Ensure git Installed
+        become: true
+        yum:
+          name: git
+          state: present 
+      
+      - name: Installing Python Docker
+        become: true
+        pip:
+          name: docker
+          
+      - name: Use Git Module to Clone
+        git:
+          repo: "{{repo}}"
+          dest: "{{dests}}/{{proj}}"
+
+      - name: build image
+        community.general.docker_image:
+          name: "{{hub}}/{{proj}}"
+          build:
+            path: "{{dests}}/{{proj}}"
+          source: build
+
+      - name: "Create Container"
+        community.general.docker_container:
+          name: "{{proj}}"
+          image: "{{hub}}/{{proj}}"
+          state: started
+          ports:
+          - "8080:80"
+
+      - name: "test Container"
+        uri:
+          url: "http://localhost:8080"
+          return_content: yes
+        register: test
+        failed_when: "'<!DOCTYPE html>' not in test.content "
+
+      - name: Tag and push to Docker hub
+        community.general.docker_image:
+          name: "{{hub}}/{{proj}}"
+          repository: "{{hub}}/{{proj}}:dev"
+          push: yes
+          source: local
+
+      

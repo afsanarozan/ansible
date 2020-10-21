@@ -1,0 +1,47 @@
+---
+  - name: Setup Server
+    hosts: frontend, backend
+    become: true
+
+    tasks:
+      - name: Check Connection node
+        ping:
+
+      - name: Install Docker
+        yum:
+          name: docker
+          state: present 
+      
+      - name: running Docker
+        service:
+          name: docker
+          state: started
+          enabled: yes
+          
+      - name: install nginx
+        yum:
+          name: nginx
+          state: present
+
+      - name: running nginx
+        service:
+          name: nginx
+          state: started
+          enabled: true
+          
+      - name: install git 
+        yum:
+          name: git
+          state: present 
+
+      - name: install nodejs
+        command: "curl -sL https://deb.nodesource.com/setup_lts.x | bash -"
+        register: nodejs 
+        failed_when: nodejs.rc != 2 and nodejs.rc != 0
+
+      - name: install docker python
+        pip:
+          name: docker
+
+      - name: install docker-compose
+        command: "curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose"
