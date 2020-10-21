@@ -46,7 +46,7 @@
           git:
             repo: "{{repo}}"
             dest: "{{dests}}/{{proj}}"
-            version: "{{branch}}"
+            version: "{{BRANCH_NAME}}"
             update: yes
   
         - name: Pull latest changes
