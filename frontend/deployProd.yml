@@ -59,6 +59,6 @@
 
       - name: Run Docker Compose
         args:
-          chdir: "{{remote_file}}"
+          chdir: "{{dests}}/{{proj}}"
         command: docker-compose -f up -d
         
