@@ -47,8 +47,8 @@
 
       - name: Remove Frontend Container
         command: docker rm frontend
-        register: frontend-rm
-        failed_when: frontend-rm.rc != 1
+        register: rm
+        failed_when: rm.rc != 1
       
       # - name: Remove Frontend Image
       #   command: docker rmi {{hub}}/{{proj}}:{{branch}}
