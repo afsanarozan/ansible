@@ -60,5 +60,5 @@
       - name: Run Docker Compose
         args:
           chdir: "{{remote_file}}"
-        command: docker-compose -f {{dockercompose}} up -d
+        command: docker-compose -f up -d
         
