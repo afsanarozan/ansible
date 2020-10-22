@@ -41,7 +41,7 @@
       - name: Stop Docker Compose
         args:
           chdir: "{{remote_file}}"
-        command: docker-compose -f {{dockercomposeProd}} stop
+        command: docker-compose -f {{dockercompose}} stop
 
       - name: Remove Frontend Container
         command: docker rm restaurant_frontend_1
@@ -60,5 +60,5 @@
       - name: Run Docker Compose
         args:
           chdir: "{{remote_file}}"
-        command: docker-compose -f {{dockercomposeProd}} up -d
+        command: docker-compose -f {{dockercompose}} up -d
         
