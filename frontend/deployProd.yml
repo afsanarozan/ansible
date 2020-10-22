@@ -38,16 +38,16 @@
           group:  "{{user}}"
           mode: 'u+x,g+x'
       
-      # - name: Stop Docker Compose
-      #   args:
-      #     chdir: "{{remote_file}}"
-      #   command: docker-compose -f {{dockercompose}} stop
+      - name: Stop Docker Compose
+        args:
+          chdir: "{{dests}}/{{proj}}"
+        command: docker-compose stop
 
-      # - name: Remove Frontend Container
-      #   command: docker rm restaurant_frontend_1
+      - name: Remove Frontend Container
+        command: docker rm frontend
       
-      # - name: Remove Frontend Image
-      #   command: docker rmi {{hub}}/{{proj}}:{{branch}}
+      - name: Remove Frontend Image
+        command: docker rmi {{hub}}/{{proj}}:{{branch}}
 
       # - name: Send docker-compose.yml to server
       #   copy:
