@@ -60,5 +60,5 @@
       - name: Run Docker Compose
         args:
           chdir: "{{dests}}/{{proj}}"
-        command: docker-compose -f up -d
+        command: docker-compose up -d
         
