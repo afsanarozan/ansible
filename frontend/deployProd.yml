@@ -3,6 +3,8 @@
     hosts: prod-server
     vars_files:
       - vars.yml
+    vars:
+      - branch: "prod"
 
     tasks:
       - name: "Check connection to node"
