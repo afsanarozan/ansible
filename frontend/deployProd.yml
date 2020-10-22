@@ -49,13 +49,13 @@
       # - name: Remove Frontend Image
       #   command: docker rmi {{hub}}/{{proj}}:{{branch}}
 
-      - name: Send docker-compose.yml to server
-        copy:
-          src: "{{dests}}/{{proj}}/{{dockercomposeProd}}"
-          dest: "{{remote_file}}/{{dockercomposeProd}}"
-          owner: "{{user}}"
-          group: "{{user}}"
-          mode: "u+x,g+x"
+      # - name: Send docker-compose.yml to server
+      #   copy:
+      #     src: "{{dests}}/{{proj}}/{{dockercomposeProd}}"
+      #     dest: "{{remote_file}}/{{dockercomposeProd}}"
+      #     owner: "{{user}}"
+      #     group: "{{user}}"
+      #     mode: "u+x,g+x"
 
       - name: Run Docker Compose
         args:
