@@ -65,4 +65,9 @@
         args:
           chdir: "{{dests}}/{{proj}}"
         command: docker-compose up -d
-        
+
+      - name: push docker hub
+        args:
+          chdir: "{{dests}}/{{proj}}"
+        command: docker push {{hub}}/{{proj}}:{{branch}}
+          
