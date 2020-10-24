@@ -1,6 +1,6 @@
 ---
     - name: Build Docker
-      hosts: backend
+      hosts: db-center
       vars_files:
         - vars.yml
         
