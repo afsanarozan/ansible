@@ -69,5 +69,5 @@
       - name: Run Docker Compose
         args:
           chdir: "{{dests}}/{{proj}}"
-        command: docker push 
+        command: docker push {{hub}}/{{proj}}:{{branch}}
         
