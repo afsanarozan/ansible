@@ -1,10 +1,8 @@
 ---
-  - name: 'Deploy to Development'
+  - name: 'Deploy to Production'
     hosts: backend
     vars_files:
       - vars.yml
-    vars:
-      - branch: "dev"
 
     tasks:
       - name: "Check connection to node"
@@ -69,5 +67,5 @@
       - name: push docker hub
         args:
           chdir: "{{dests}}/{{proj}}"
-        command: docker push {{hub}}/{{proj}}:{{branch}}
+        command: docker push {{hub}}/{{proj}}
         

@@ -3,8 +3,6 @@
       hosts: backend
       vars_files:
         - vars.yml
-      vars:
-        - branch: "dev"
         
   
       tasks:
@@ -48,11 +46,10 @@
           git:
             repo: "{{repo}}"
             dest: "{{dests}}/{{proj}}"
-            version: "{{branch}}"
             update: yes
   
         - name: Pull latest changes
-          command: git pull origin {{branch}}
+          command: git pull origin
           args:
             chdir: "{{dests}}/{{proj}}"
   
@@ -72,26 +69,15 @@
           community.general.docker_image:
             state: absent
             name: "{{hub}}/{{proj}}"
-            tag: "{{branch}}"
   
         - name: "Build image Dev and Stag"
           community.general.docker_image:
-            name: "{{hub}}/{{proj}}:{{branch}}"
+            name: "{{hub}}/{{proj}}"
             build:
               path: "{{dests}}/{{proj}}"
               dockerfile: Dockerfile
             source: build
             state: present
-          when: branch=="dev"
-            
-        
-        - name: "Build image Prod"
-          community.general.docker_image:
-            name: "{{hub}}/{{proj}}:{{branch}}"
-            build:
-              path: "{{dests}}/{{proj}}"
-            source: build
-            state: present
-          when: branch=="prod"
+   
           
   
