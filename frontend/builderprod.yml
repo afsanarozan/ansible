@@ -1,6 +1,6 @@
 ---
     - name: Build Docker
-      hosts: frontend
+      hosts: prod-server
       vars_files:
         - vars.yml
       vars:

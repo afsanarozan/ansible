@@ -1,6 +1,6 @@
 ---
     hub: "afsanarozan"
-    proj: "cafe-frontend"
+    proj: "frontend"
     dests: /home/ansman/project
     repo: https://github.com/afsanarozan/cafe-frontend.git
     urlTest: "http://localhost"

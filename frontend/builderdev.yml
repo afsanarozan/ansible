@@ -1,6 +1,6 @@
 ---
   - name: Build Docker
-    hosts: frontend
+    hosts: dev-server
     vars_files:
       - vars.yml
     vars:
@@ -60,6 +60,8 @@
         args:
           chdir: "{{dests}}/{{proj}}"
         command: docker-compose stop
+        register: rm
+        failed_when: rm.rc != 1 and rm.rc != 0
 
       - name: Remove Frontend Container
         command: docker rm frontend
