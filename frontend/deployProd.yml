@@ -10,17 +10,17 @@
       - name: "Check connection to node"
         ping:
       
-      - name: Stop Cluster
-        command: kops delete cluster --name=$NAME --state=$KOPS_STATE_STORE --yes
+      # - name: Stop Cluster
+      #   command: kops delete cluster --name=$NAME --state=$KOPS_STATE_STORE --yes
 
       - name: Make New Cluster
         command: kops create cluster --cloud=aws --zones=us-east-1a --name=$NAME --node-size=t2.medium --master-size=t2.medium --dns-zone=example.com --dns private
 
-      - name: apply Cluster
+      - name: next configuration Cluster
         command: kops update cluster --name=$NAME --yes
 
-      # # - name: Remove Frontend Image
-      # #   command: docker rmi {{hub}}/{{proj}}:{{branch}}
+      - name: apply yaml file
+        command: kubectl apply -f example-rollout.yaml
 
       # # # - name: Send docker-compose.yml to server
       # # #   copy:
