@@ -10,15 +10,14 @@
       - name: "Check connection to node"
         ping:
       
-      # - name: Stop Cluster
-      #   args:
-      #     chdir: "{{dests}}/{{proj}}"
-      #   command: docker-compose stop
+      - name: Stop Cluster
+        command: kops delete cluster --name=$NAME --state=$KOPS_STATE_STORE --yes
 
-      # - name: Remove Frontend Container
-      #   command: docker rm frontend
-      #   register: rm
-      #   failed_when: rm.rc != 1 and rm.rc != 0
+      - name: Make New Cluster
+        command: kops create cluster --cloud=aws --zones=us-east-1a --name=$NAME --node-size=t2.medium --master-size=t2.medium --dns-zone=example.com --dns private
+
+      - name: apply Cluster
+      command: kops update cluster --name=$NAME --yes
       
       # # - name: Remove Frontend Image
       # #   command: docker rmi {{hub}}/{{proj}}:{{branch}}
