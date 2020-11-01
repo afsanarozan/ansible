@@ -1,6 +1,6 @@
 ---
   - name: 'Deploy to Production'
-    hosts: prod-server
+    hosts: k8s-controll
     vars_files:
       - vars.yml
     vars:
@@ -17,8 +17,8 @@
         command: kops create cluster --cloud=aws --zones=us-east-1a --name=$NAME --node-size=t2.medium --master-size=t2.medium --dns-zone=example.com --dns private
 
       - name: apply Cluster
-      command: kops update cluster --name=$NAME --yes
-      
+        command: kops update cluster --name=$NAME --yes
+
       # # - name: Remove Frontend Image
       # #   command: docker rmi {{hub}}/{{proj}}:{{branch}}
 
