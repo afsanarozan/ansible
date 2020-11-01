@@ -10,8 +10,8 @@
       - name: "Check connection to node"
         ping:
       
-      # - name: Stop Cluster
-      #   command: kops delete cluster --name=$NAME --state=$KOPS_STATE_STORE --yes
+      - name: Stop Cluster
+        command: kops delete cluster --name=$NAME --state=$KOPS_STATE_STORE --yes
 
       - name: Make New Cluster
         command: kops create cluster --cloud=aws --zones=us-east-1a --name=$NAME --node-size=t2.medium --master-size=t2.medium --dns-zone=example.com --dns private
