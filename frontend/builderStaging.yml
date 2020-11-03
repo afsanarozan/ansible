@@ -73,6 +73,7 @@
           state: absent
           name: "{{hub}}/{{proj}}"
           tag: "{{branch}}"
+        failed_when: rm.rc != 1 and rm.rc != 0
       
       - name: "Build image staging"
         community.general.docker_image:
