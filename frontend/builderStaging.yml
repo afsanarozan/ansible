@@ -39,10 +39,10 @@
           name: git
           state: present
       
-      - name: "Installing Python Docker"
-        become: true
-        pip:
-          name: docker
+      # - name: "Installing Python Docker"
+      #   become: true
+      #   pip:
+      #     name: docker
       
       - name: "Clone Git Repository"
         git:
