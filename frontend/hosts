@@ -3,6 +3,9 @@ localhost
 dev-server ansible_host=172.31.16.90 ansible_connection=ssh ansible_user=ansman
 prod-server ansible_host=ansman@172.31.82.152 ansible_connection=ssh
 
+[staging]
+staging-server ansible_host=ansman@172.31.93.85 ansible_connection=ssh
+
 [kubernetes]
 k8s-controll ansible_host=172.31.83.31 ansible_connection=ssh ansible_user=root 
 
