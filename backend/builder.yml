@@ -51,16 +51,14 @@
         command: git pull 
         args:
           chdir: "{{dests}}/{{proj}}"
+  
+      - name: Stop Docker container
+        command: docker stop {{hub}}/{{proj}}
 
-      # - name: Stop Docker container
-      #   command: docker stop {{hub}}/{{proj}
-      #   register: stop 
-      #   failed_when: stop.rc != 1 and stop.rc != 0
-
-      # - name: Remove backend Container
-      #   command: docker rm {{hub}}/{{proj}
-      #   register: rm
-      #   failed_when: rm.rc != 1 and rm.rc != 0
+      - name: Remove Frontend Container
+        command: docker rm {{hub}}/{{proj}}
+        register: rm
+        failed_when: rm.rc != 1 and rm.rc != 0
 
       - name: Remove image
         community.general.docker_image:
