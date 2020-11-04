@@ -53,10 +53,10 @@
           chdir: "{{dests}}/{{proj}}"
   
       - name: Stop Docker container
-        command: docker stop {{hub}}/{{proj}}
+        command: docker stop cafe-backend_nodejs_1
 
       - name: Remove Frontend Container
-        command: docker rm {{hub}}/{{proj}}
+        command: docker rm cafe-backend_nodejs_1
         register: rm
         failed_when: rm.rc != 1 and rm.rc != 0
 
