@@ -67,13 +67,18 @@
           state: absent
           name: "{{hub}}/{{proj}}"
 
-      - name: "Build image"
-        community.general.docker_image:
-          name: "{{hub}}/{{proj}}"
-          build:
-            path: "{{dests}}/{{proj}}"
-            dockerfile: Dockerfile
-          source: build
-          state: present
+      # - name: "Build image"
+      #   community.general.docker_image:
+      #     name: "{{hub}}/{{proj}}"
+      #     build:
+      #       path: "{{dests}}/{{proj}}"
+      #       dockerfile: Dockerfile
+      #     source: build
+      #     state: present
+
+      - name: Build Image
+        command: docker build -t {{hub}}/{{proj}} .
+        args:
+          chdir: "{{dests}}/{{proj}}"
   
         
