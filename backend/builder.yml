@@ -54,6 +54,8 @@
   
       - name: Stop Docker container
         command: docker stop cafe-backend_nodejs_1
+        register: stp
+        failed_when: stp.rc != 1 and stp.rc != 0
 
       - name: Remove Frontend Container
         command: docker rm cafe-backend_nodejs_1
@@ -61,9 +63,14 @@
         failed_when: rm.rc != 1 and rm.rc != 0
 
       - name: Remove image
-        community.general.docker_image:
-          state: absent
-          name: "{{hub}}/{{proj}}"
+        command: docker rmi {{hub}}/{{proj}}
+        register: rmi
+        failed_when: rmi.rc != 1 and rmi.rc != 0
+
+      # - name: Remove image
+      #   community.general.docker_image:
+      #     state: absent
+      #     name: "{{hub}}/{{proj}}"
 
       # - name: "Build image"
       #   community.general.docker_image:
