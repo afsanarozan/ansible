@@ -54,6 +54,9 @@
         args:
           chdir: "{{dests}}/{{proj}}"
         command: docker-compose up -d
+
+      - name: restart container
+        command: docker restart cafe-backend_nodejs_1
       
       - name: push docker hub
         args:
