@@ -52,10 +52,10 @@
         args:
           chdir: "{{dests}}/{{proj}}"
 
-      - name: Stop Docker container
-        command: docker stop {{hub}}/{{proj}
-        register: rm 
-        failed_when: rm.rc != 1 and rm.rc != 0
+      # - name: Stop Docker container
+      #   command: docker stop {{hub}}/{{proj}
+      #   register: rm 
+      #   failed_when: rm.rc != 1 and rm.rc != 0
 
       - name: Remove backend Container
         command: docker rm {{hub}}/{{proj}
