@@ -49,19 +49,17 @@
             update: yes
   
         - name: Pull latest changes
-          command: git pull origin
+          command: git pull 
           args:
             chdir: "{{dests}}/{{proj}}"
   
-        - name: Stop Docker Compose
-          args:
-            chdir: "{{dests}}/{{proj}}"
-          command: docker-compose stop
-          register: rm
+        - name: Stop Docker container
+          command: docker stop {{hub}}/{{proj}
+          register: rm 
           failed_when: rm.rc != 1 and rm.rc != 0
   
-        - name: Remove Frontend Container
-          command: docker rm frontend
+        - name: Remove backend Container
+          command: docker rm {{hub}}/{{proj}
           register: rm
           failed_when: rm.rc != 1 and rm.rc != 0
   
@@ -70,7 +68,7 @@
             state: absent
             name: "{{hub}}/{{proj}}"
   
-        - name: "Build image Dev and Stag"
+        - name: "Build image"
           community.general.docker_image:
             name: "{{hub}}/{{proj}}"
             build:
