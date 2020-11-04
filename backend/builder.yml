@@ -53,7 +53,7 @@
           chdir: "{{dests}}/{{proj}}"
   
       - name: Stop Docker container
-        command: docker stop cafe-backend_nodejs_1
+        command: docker stop cafe-backend_nodejs_1 cafe-backend_postgres_1
         register: stp
         failed_when: stp.rc != 1 and stp.rc != 0
 
