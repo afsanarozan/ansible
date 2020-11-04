@@ -57,10 +57,10 @@
       #   register: rm 
       #   failed_when: rm.rc != 1 and rm.rc != 0
 
-      - name: Remove backend Container
-        command: docker rm {{hub}}/{{proj}
-        register: rm
-        failed_when: rm.rc != 1 and rm.rc != 0
+      # - name: Remove backend Container
+      #   command: docker rm {{hub}}/{{proj}
+      #   register: rm
+      #   failed_when: rm.rc != 1 and rm.rc != 0
 
       - name: Remove image
         community.general.docker_image:
