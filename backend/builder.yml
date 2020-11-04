@@ -68,9 +68,12 @@
         failed_when: rmi.rc != 1 and rmi.rc != 0
 
       - name: remove postgres-data
-        command: sudo rm -r postgres-data
+        become: true
+        command: rm -r postgres-data
         args:
           chdir: "{{dests}}/{{proj}}"
+        register: db
+        failed_when: db.rc != 1 and db.rc != 0
 
       # - name: Remove image
       #   community.general.docker_image:
