@@ -67,30 +67,16 @@
           failed_when: rm.rc != 1 and rm.rc != 0
   
         - name: Remove image
-          community.general.docker_image:
-            state: absent
-            name: "{{hub}}/{{proj}}"
-            tag: "{{branch}}"
+          command: docker rmi {{hub}}/{{proj}}:{{branch}}
+          register: rmi
+          failed_when: rmi.rc != 1 and rmi.rc != 0 
   
         - name: "Build image Dev and Stag"
-          community.general.docker_image:
-            name: "{{hub}}/{{proj}}:{{branch}}"
-            build:
-              path: "{{dests}}/{{proj}}"
-              dockerfile: Dockerfile
-            source: build
-            state: present
-          when: branch=="dev"
-            
-        
-        - name: "Build image Prod"
-          community.general.docker_image:
-            name: "{{hub}}/{{proj}}:{{branch}}"
-            build:
-              path: "{{dests}}/{{proj}}"
-            source: build
-            state: present
+          args:
+            chdir: "{{dests}}/{{proj}}"
+          command: docker build -t {{hub}}/{{proj}}:{{branch}} .
           when: branch=="prod"
+    
 
         - name: push docker hub
           args:

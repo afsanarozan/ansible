@@ -68,19 +68,10 @@
         register: rmi
         failed_when: rmi.rc != 1 and rmi.rc != 0 
 
-      - name: "Build image Dev and Stag"
+      - name: "Build image Dev"
         args:
           chdir: "{{dests}}/{{proj}}"
         command: docker build -t {{hub}}/{{proj}}:{{branch}} .
         when: branch=="dev"
-          
-      
-      - name: "Build image Prod"
-        community.general.docker_image:
-          name: "{{hub}}/{{proj}}:{{branch}}"
-          build:
-            path: "{{dests}}/{{proj}}"
-          source: build
-          state: present
-        when: branch=="prod"
+   
         
