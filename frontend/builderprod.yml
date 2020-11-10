@@ -82,5 +82,6 @@
           args:
             chdir: "{{dests}}/{{proj}}"
           command: docker push {{hub}}/{{proj}}:{{branch}}
+          
             
   
