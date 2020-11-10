@@ -41,8 +41,7 @@
       
       - name: "Installing Python Docker"
         become: true
-        pip3:
-          name: docker
+        command: pip3 install Docker
       
       - name: "Clone Git Repository"
         git:
